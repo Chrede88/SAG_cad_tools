@@ -1,8 +1,0 @@
-setup.py
-cad_tools/__init__.py
-cad_tools/cad_tools.py
-cad_tools.egg-info/PKG-INFO
-cad_tools.egg-info/SOURCES.txt
-cad_tools.egg-info/dependency_links.txt
-cad_tools.egg-info/requires.txt
-cad_tools.egg-info/top_level.txt
