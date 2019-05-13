@@ -35,16 +35,31 @@ def save_dxf(fileContainer):
 # //// Layers /////
 # /////////////////
 
+def check_layer_state(fileContainer,layerName):
+
+	""" Checks is layer "layerName" exists.
+		Returns True if it exists, and False otherwise. """
+
+	for layer in fileContainer.layers:
+		if layer.dxf.name == layerName:
+			return True
+	return False
+
 def create_layer(fileContainer,newLayer,layerAttr):
 
-	""" Create a new layer called 'newLayer'.
+	""" Create a new layer called 'newLayer', if it doesn't
+		already exists.
 		Layer colors: red:1, blue:5, white:7
 
 		Args:	fileContainer (type:ezdxf.drawing.Drawing),
 				newLayer (type:str),
 				layerAttr (type:dict) """
-
-	fileContainer.layers.new(name=newLayer, dxfattribs=layerAttr)
+	if check_layer_state(fileContainer,newLayer):
+		# do nothing
+		print('Layer: {} already exists!'.format(newLayer))
+	else:
+		# create layer
+		fileContainer.layers.new(name=newLayer, dxfattribs=layerAttr)
 
 def print_layers(fileContainer):
 
@@ -81,7 +96,7 @@ def create_LWPolyLine(fileContainer,points,width,lineAttr):
 
 def create_SAG_contact_layer(fileContainer,layerName,sourceLayer,color):
 
-	""" Creates a new layer called 'layerName'.
+	""" Creates a new layer called 'layerName', if it dosen't already exists.
 		Adds LWPolyLines on top of nonzero width LWPolyLines
 		from 'sourceLayer', with a smaller width. Widths are defined
 		in the lookup table 'width_lookup'.
@@ -95,7 +110,7 @@ def create_SAG_contact_layer(fileContainer,layerName,sourceLayer,color):
 
 	msp = fileContainer.modelspace()
 
-	# create new layer
+	# create new layer, if it's doesn't already exists
 	create_layer(fileContainer, layerName, layerAttr={'color': color})
 
 	# find all LWPolyLines in sourceLayer
