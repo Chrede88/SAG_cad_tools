@@ -1,2 +1,3 @@
 # cad_tools
-Simple tools for e-beam CAD designs
+Simple CAD tools for e-beam CAD designs
+Useful when designing DAC files for SAG device designs
